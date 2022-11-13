@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="\StyleFolder\PageStyle.xaml"/>
                 <ResourceDictionary Source="\StyleFolder\ButtonStyle.xaml"/>
                 <ResourceDictionary Source="\StyleFolder\StackPanelStyle.xaml"/>
+                <ResourceDictionary Source="\StyleFolder\TextBoxStyle.xaml"/>
+                <ResourceDictionary Source="\StyleFolder\DataGridStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

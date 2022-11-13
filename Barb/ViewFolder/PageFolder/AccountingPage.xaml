@@ -1,0 +1,60 @@
+﻿<Page x:Class="Barb.ViewFolder.PageFolder.AccountingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Barb.ViewFolder.PageFolder"
+      mc:Ignorable="d" 
+      Style="{StaticResource MainPageStyle}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="\ContentFolder\ImageFolder\SK.png"/>
+        </Grid.Background>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <DataGrid
+                Width="900"
+                Height="700"
+                FontSize="20"
+                x:Name="ListAccountingDataGrid">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="ДАТА ВЫДАЧИ"
+                        Binding="{Binding Datelspol, StringFormat='{}{0:dd/MM/yyyy}'}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="ПРОДУКТ"
+                        Binding="{Binding MaterialTible.Name}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="ПРОИЗВОДИТЕЛЬ"
+                        Binding="{Binding MaterialTible.ProizvoditelTable.Name}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="СОТРУДНИК"
+                        Binding="{Binding SotrudnikTable.Name}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="ЦЕНА"
+                        Binding="{Binding Zana}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="КОЛИЧЕСТВО"
+                        Binding="{Binding Kolvo}"
+                        Width="auto"/>
+                    <DataGridTextColumn
+                        FontSize="15"
+                        Header="ИТОГ"
+                        Binding="{Binding Summa}"
+                        Width="auto"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Page>

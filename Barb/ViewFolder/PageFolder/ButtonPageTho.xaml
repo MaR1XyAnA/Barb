@@ -25,12 +25,11 @@
             <Button
                 Content="ВЕДЕНИЕ УЧЁТА"
                 x:Name="IntroductionAccountingButton"
-                Click="NewManufacturerButton_Click"/>
+                Click="IntroductionAccountingButton_Click"/>
             <Button
                 Content="ОТЧЁТ"
                 x:Name="ReportButton"
                 Click="ReportButton_Click"/>
         </StackPanel>
-
     </Grid>
 </Page>

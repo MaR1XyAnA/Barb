@@ -1,0 +1,34 @@
+﻿<Page x:Class="Barb.ViewFolder.PageFolder.NewWorkerPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Barb.ViewFolder.PageFolder"
+      mc:Ignorable="d" 
+      Style="{StaticResource MainPageStyle}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="\ContentFolder\ImageFolder\SK.png"/>
+        </Grid.Background>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 50 0 0">
+            <TextBlock 
+                Text="ФИО СОТРУДНИКА"
+                FontSize="30"
+                Margin="20 0 0 0"
+                Foreground="#ff00ff"
+                FontWeight="Bold" 
+                FontStyle="Italic"/>
+            <TextBox
+                Style="{StaticResource TextBox}"
+                x:Name="NameSNMWorkerTextBox"
+                Width="800"
+                Margin="0 5 0 0"/>
+            <Button
+                Margin="0 20 0 0"
+                Content="ДОБАВИТЬ"
+                x:Name="NewWorkerButton"
+                Click="NewWorkerButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Page>
