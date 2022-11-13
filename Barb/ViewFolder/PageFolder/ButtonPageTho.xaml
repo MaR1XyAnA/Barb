@@ -1,0 +1,36 @@
+﻿<Page x:Class="Barb.ViewFolder.PageFolder.ButtonPageTho"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Barb.ViewFolder.PageFolder"
+      mc:Ignorable="d" 
+      Style="{StaticResource ButtonPageStyle}">
+
+    <Grid>
+        <Image Source="\ContentFolder\ImageFolder\SK2.png"/>
+        <StackPanel>
+            <Button
+                Content="ДОБАВИТЬ ПРОИЗВОДИТЕЛЯ"
+                x:Name="NewManufacturerButton"
+                Click="NewManufacturerButton_Click"/>
+            <Button
+                Content="ДОБАВИТЬ ТОВАР"
+                x:Name="NewProductsButton"
+                Click="NewProductsButton_Click"/>
+            <Button
+                Content="ДОБАВИТЬ СОТРУДНИКА"
+                x:Name="NewWorkerButton"
+                Click="NewWorkerButton_Click"/>
+            <Button
+                Content="ВЕДЕНИЕ УЧЁТА"
+                x:Name="IntroductionAccountingButton"
+                Click="NewManufacturerButton_Click"/>
+            <Button
+                Content="ОТЧЁТ"
+                x:Name="ReportButton"
+                Click="ReportButton_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Page>
