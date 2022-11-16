@@ -15,6 +15,7 @@ namespace Barb.ViewFolder.PageFolder
             AppConnectClass.DataBase = new HypperXEntities();
             NameWorkerComboBox.ItemsSource = AppConnectClass.DataBase.SotrudnikTable.ToList();
             NameProductComboBox.ItemsSource = AppConnectClass.DataBase.MaterialTible.ToList();
+            NameProizvoditelComboBox.ItemsSource = AppConnectClass.DataBase.ProizvoditelTable.ToList();
         }
 
         private void NewAccountingButton_Click(object sender, RoutedEventArgs e)
@@ -45,6 +46,13 @@ namespace Barb.ViewFolder.PageFolder
                 catch (Exception ex)
                 { MessageBox.Show(ex.Message.ToString(), "ERROR Exception"); }
             }
+        }
+
+        private void NameProizvoditelComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int Sweep = Convert.ToInt32(NameProizvoditelComboBox.SelectedValue);
+            NameProductComboBox.ItemsSource = AppConnectClass.DataBase.MaterialTible.
+                Where(data => data.IDProizvoditel == Sweep).ToList();
         }
     }
 }

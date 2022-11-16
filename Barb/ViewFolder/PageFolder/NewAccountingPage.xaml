@@ -42,6 +42,21 @@
                 Height="60"
                 Margin="0 2 0 2"/>
             <TextBlock 
+                Text="ПРОИЗВОДИТЕЛЬ"
+                FontSize="30"
+                Margin="0 10 0 0"
+                Foreground="#ff00ff"
+                FontWeight="Bold" 
+                FontStyle="Italic"/>
+            <ComboBox
+                SelectedValuePath="Id"
+                SelectionChanged="NameProizvoditelComboBox_SelectionChanged"
+                DisplayMemberPath="Name"
+                x:Name="NameProizvoditelComboBox"
+                Width="800"
+                Height="60"
+                Margin="0 2 0 2"/>
+            <TextBlock 
                 Text="ТОВАР"
                 FontSize="30"
                 Margin="0 10 0 0"
@@ -49,6 +64,7 @@
                 FontWeight="Bold" 
                 FontStyle="Italic"/>
             <ComboBox
+                SelectedValuePath="ID"
                 DisplayMemberPath="Name"
                 x:Name="NameProductComboBox"
                 Width="800"
@@ -62,6 +78,7 @@
                 FontWeight="Bold" 
                 FontStyle="Italic"/>
             <TextBox
+                Style="{StaticResource TextBox}"
                 x:Name="QuantityTextBox"
                 Width="800"
                 Height="60"
@@ -74,6 +91,7 @@
                 FontWeight="Bold" 
                 FontStyle="Italic"/>
             <TextBox
+                Style="{StaticResource TextBox}"
                 x:Name="PriceTextBox"
                 Width="800"
                 Height="60"
