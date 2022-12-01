@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище HypperXModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище HypperXModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="MaterialTible">
           <Key>
             <PropertyRef Name="ID" />
@@ -49,6 +49,19 @@
           <Property Name="Kolvo" Type="int" Nullable="false" />
           <Property Name="Summa" Type="decimal" Precision="29" Scale="2" StoreGeneratedPattern="Computed" />
         </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "HypperX.dbo.RequestWorker" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="RequestWorker">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IDSotrudnik" />
+            <PropertyRef Name="Datelspol" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="IDSotrudnik" Type="int" Nullable="false" />
+          <Property Name="Summa" Type="decimal" Precision="29" Scale="2" />
+          <Property Name="Datelspol" Type="date" Nullable="false" />
+        </EntityType>
         <Association Name="FK_MaterialTible_ProizvoditelTable">
           <End Role="ProizvoditelTable" Type="Self.ProizvoditelTable" Multiplicity="1" />
           <End Role="MaterialTible" Type="Self.MaterialTible" Multiplicity="*" />
@@ -91,6 +104,14 @@
           <EntitySet Name="SotrudnikTable" EntityType="Self.SotrudnikTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UcherTable" EntityType="Self.UcherTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestWorker" EntityType="Self.RequestWorker" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RequestWorker].[Name] AS [Name], 
+    [RequestWorker].[IDSotrudnik] AS [IDSotrudnik], 
+    [RequestWorker].[Summa] AS [Summa], 
+    [RequestWorker].[Datelspol] AS [Datelspol]
+    FROM [dbo].[RequestWorker] AS [RequestWorker]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_MaterialTible_ProizvoditelTable" Association="Self.FK_MaterialTible_ProizvoditelTable">
             <End Role="ProizvoditelTable" EntitySet="ProizvoditelTable" />
             <End Role="MaterialTible" EntitySet="MaterialTible" />
@@ -104,42 +125,61 @@
             <End Role="UcherTable" EntitySet="UcherTable" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="HypperXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HypperXEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="MaterialTible" EntityType="HypperXModel.MaterialTible" />
+          <EntitySet Name="ProizvoditelTable" EntityType="HypperXModel.ProizvoditelTable" />
+          <EntitySet Name="SotrudnikTable" EntityType="HypperXModel.SotrudnikTable" />
+          <EntitySet Name="sysdiagrams" EntityType="HypperXModel.sysdiagrams" />
+          <EntitySet Name="UcherTable" EntityType="HypperXModel.UcherTable" />
+          <EntitySet Name="RequestWorker" EntityType="HypperXModel.RequestWorker" />
+          <AssociationSet Name="FK_MaterialTible_ProizvoditelTable" Association="HypperXModel.FK_MaterialTible_ProizvoditelTable">
+            <End Role="ProizvoditelTable" EntitySet="ProizvoditelTable" />
+            <End Role="MaterialTible" EntitySet="MaterialTible" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcherTable_MaterialTible" Association="HypperXModel.FK_UcherTable_MaterialTible">
+            <End Role="MaterialTible" EntitySet="MaterialTible" />
+            <End Role="UcherTable" EntitySet="UcherTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UcherTable_SotrudnikTable" Association="HypperXModel.FK_UcherTable_SotrudnikTable">
+            <End Role="SotrudnikTable" EntitySet="SotrudnikTable" />
+            <End Role="UcherTable" EntitySet="UcherTable" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="MaterialTible">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IDProizvoditel" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProizvoditelTable" Relationship="Self.FK_MaterialTible_ProizvoditelTable" FromRole="MaterialTible" ToRole="ProizvoditelTable" />
-          <NavigationProperty Name="UcherTable" Relationship="Self.FK_UcherTable_MaterialTible" FromRole="MaterialTible" ToRole="UcherTable" />
+          <NavigationProperty Name="ProizvoditelTable" Relationship="HypperXModel.FK_MaterialTible_ProizvoditelTable" FromRole="MaterialTible" ToRole="ProizvoditelTable" />
+          <NavigationProperty Name="UcherTable" Relationship="HypperXModel.FK_UcherTable_MaterialTible" FromRole="MaterialTible" ToRole="UcherTable" />
         </EntityType>
         <EntityType Name="ProizvoditelTable">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="MaterialTible" Relationship="Self.FK_MaterialTible_ProizvoditelTable" FromRole="ProizvoditelTable" ToRole="MaterialTible" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MaterialTible" Relationship="HypperXModel.FK_MaterialTible_ProizvoditelTable" FromRole="ProizvoditelTable" ToRole="MaterialTible" />
         </EntityType>
         <EntityType Name="SotrudnikTable">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UcherTable" Relationship="Self.FK_UcherTable_SotrudnikTable" FromRole="SotrudnikTable" ToRole="UcherTable" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UcherTable" Relationship="HypperXModel.FK_UcherTable_SotrudnikTable" FromRole="SotrudnikTable" ToRole="UcherTable" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -153,15 +193,26 @@
           <Property Name="Datelspol" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="IDSotrudnik" Type="Int32" Nullable="false" />
           <Property Name="IDMaterial" Type="Int32" Nullable="false" />
-          <Property Name="Zana" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Zana" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="Kolvo" Type="Int32" Nullable="false" />
           <Property Name="Summa" Type="Decimal" Precision="29" Scale="2" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="MaterialTible" Relationship="Self.FK_UcherTable_MaterialTible" FromRole="UcherTable" ToRole="MaterialTible" />
-          <NavigationProperty Name="SotrudnikTable" Relationship="Self.FK_UcherTable_SotrudnikTable" FromRole="UcherTable" ToRole="SotrudnikTable" />
+          <NavigationProperty Name="MaterialTible" Relationship="HypperXModel.FK_UcherTable_MaterialTible" FromRole="UcherTable" ToRole="MaterialTible" />
+          <NavigationProperty Name="SotrudnikTable" Relationship="HypperXModel.FK_UcherTable_SotrudnikTable" FromRole="UcherTable" ToRole="SotrudnikTable" />
+        </EntityType>
+        <EntityType Name="RequestWorker">
+          <Key>
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="IDSotrudnik" />
+            <PropertyRef Name="Datelspol" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IDSotrudnik" Type="Int32" Nullable="false" />
+          <Property Name="Summa" Type="Decimal" Precision="29" Scale="2" />
+          <Property Name="Datelspol" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <Association Name="FK_MaterialTible_ProizvoditelTable">
-          <End Role="ProizvoditelTable" Type="Self.ProizvoditelTable" Multiplicity="1" />
-          <End Role="MaterialTible" Type="Self.MaterialTible" Multiplicity="*" />
+          <End Type="HypperXModel.ProizvoditelTable" Role="ProizvoditelTable" Multiplicity="1" />
+          <End Type="HypperXModel.MaterialTible" Role="MaterialTible" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProizvoditelTable">
               <PropertyRef Name="Id" />
@@ -172,8 +223,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UcherTable_MaterialTible">
-          <End Role="MaterialTible" Type="Self.MaterialTible" Multiplicity="1" />
-          <End Role="UcherTable" Type="Self.UcherTable" Multiplicity="*" />
+          <End Type="HypperXModel.MaterialTible" Role="MaterialTible" Multiplicity="1" />
+          <End Type="HypperXModel.UcherTable" Role="UcherTable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="MaterialTible">
               <PropertyRef Name="ID" />
@@ -184,8 +235,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UcherTable_SotrudnikTable">
-          <End Role="SotrudnikTable" Type="Self.SotrudnikTable" Multiplicity="1" />
-          <End Role="UcherTable" Type="Self.UcherTable" Multiplicity="*" />
+          <End Type="HypperXModel.SotrudnikTable" Role="SotrudnikTable" Multiplicity="1" />
+          <End Type="HypperXModel.UcherTable" Role="UcherTable" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SotrudnikTable">
               <PropertyRef Name="ID" />
@@ -195,26 +246,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HypperXEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="MaterialTible" EntityType="Self.MaterialTible" />
-          <EntitySet Name="ProizvoditelTable" EntityType="Self.ProizvoditelTable" />
-          <EntitySet Name="SotrudnikTable" EntityType="Self.SotrudnikTable" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <EntitySet Name="UcherTable" EntityType="Self.UcherTable" />
-          <AssociationSet Name="FK_MaterialTible_ProizvoditelTable" Association="Self.FK_MaterialTible_ProizvoditelTable">
-            <End Role="ProizvoditelTable" EntitySet="ProizvoditelTable" />
-            <End Role="MaterialTible" EntitySet="MaterialTible" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UcherTable_MaterialTible" Association="Self.FK_UcherTable_MaterialTible">
-            <End Role="MaterialTible" EntitySet="MaterialTible" />
-            <End Role="UcherTable" EntitySet="UcherTable" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UcherTable_SotrudnikTable" Association="Self.FK_UcherTable_SotrudnikTable">
-            <End Role="SotrudnikTable" EntitySet="SotrudnikTable" />
-            <End Role="UcherTable" EntitySet="UcherTable" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -223,49 +255,59 @@
           <EntitySetMapping Name="MaterialTible">
             <EntityTypeMapping TypeName="HypperXModel.MaterialTible">
               <MappingFragment StoreEntitySet="MaterialTible">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="IDProizvoditel" ColumnName="IDProizvoditel" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProizvoditelTable">
             <EntityTypeMapping TypeName="HypperXModel.ProizvoditelTable">
               <MappingFragment StoreEntitySet="ProizvoditelTable">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SotrudnikTable">
             <EntityTypeMapping TypeName="HypperXModel.SotrudnikTable">
               <MappingFragment StoreEntitySet="SotrudnikTable">
-                <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="HypperXModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UcherTable">
             <EntityTypeMapping TypeName="HypperXModel.UcherTable">
               <MappingFragment StoreEntitySet="UcherTable">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Datelspol" ColumnName="Datelspol" />
-                <ScalarProperty Name="IDSotrudnik" ColumnName="IDSotrudnik" />
-                <ScalarProperty Name="IDMaterial" ColumnName="IDMaterial" />
-                <ScalarProperty Name="Zana" ColumnName="Zana" />
-                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
                 <ScalarProperty Name="Summa" ColumnName="Summa" />
+                <ScalarProperty Name="Kolvo" ColumnName="Kolvo" />
+                <ScalarProperty Name="Zana" ColumnName="Zana" />
+                <ScalarProperty Name="IDMaterial" ColumnName="IDMaterial" />
+                <ScalarProperty Name="IDSotrudnik" ColumnName="IDSotrudnik" />
+                <ScalarProperty Name="Datelspol" ColumnName="Datelspol" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestWorker">
+            <EntityTypeMapping TypeName="HypperXModel.RequestWorker">
+              <MappingFragment StoreEntitySet="RequestWorker">
+                <ScalarProperty Name="Datelspol" ColumnName="Datelspol" />
+                <ScalarProperty Name="Summa" ColumnName="Summa" />
+                <ScalarProperty Name="IDSotrudnik" ColumnName="IDSotrudnik" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

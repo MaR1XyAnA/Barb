@@ -30,5 +30,6 @@ namespace Barb.ModelFolder
         public virtual DbSet<SotrudnikTable> SotrudnikTable { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UcherTable> UcherTable { get; set; }
+        public virtual DbSet<RequestWorker> RequestWorker { get; set; }
     }
 }

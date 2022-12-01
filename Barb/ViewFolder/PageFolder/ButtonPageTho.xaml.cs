@@ -34,5 +34,10 @@ namespace Barb.ViewFolder.PageFolder
         {
             ClassFolder.FrameClass.FrameTitle.Navigate(new NewAccountingPage());
         }
+
+        private void ReportPeriodButton_Click(object sender, RoutedEventArgs e)
+        {
+            ClassFolder.FrameClass.FrameTitle.Navigate(new ReportPeriodPage());
+        }
     }
 }

@@ -91,6 +91,9 @@
     <Compile Include="ModelFolder\ProizvoditelTable.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ModelFolder\RequestWorker.cs">
+      <DependentUpon>DataBaseModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelFolder\SotrudnikTable.cs">
       <DependentUpon>DataBaseModel.tt</DependentUpon>
     </Compile>
@@ -120,6 +123,9 @@
     </Compile>
     <Compile Include="ViewFolder\PageFolder\NewWorkerPage.xaml.cs">
       <DependentUpon>NewWorkerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewFolder\PageFolder\ReportPeriodPage.xaml.cs">
+      <DependentUpon>ReportPeriodPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewFolder\PageFolder\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
@@ -220,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ViewFolder\PageFolder\NewWorkerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewFolder\PageFolder\ReportPeriodPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -30,6 +30,10 @@
                 Content="ОТЧЁТ"
                 x:Name="ReportButton"
                 Click="ReportButton_Click"/>
+            <Button
+                Content="ПО ПЕРИУДУ"
+                x:Name="ReportPeriodButton"
+                Click="ReportPeriodButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

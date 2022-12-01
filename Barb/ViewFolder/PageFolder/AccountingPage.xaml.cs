@@ -23,7 +23,25 @@ namespace Barb.ViewFolder.PageFolder
         {
             InitializeComponent();
             AppConnectClass.DataBase = new HypperXEntities();
+            
             ListAccountingDataGrid.ItemsSource = AppConnectClass.DataBase.UcherTable.ToList();
+            WorkerCobmaBox.ItemsSource = AppConnectClass.DataBase.SotrudnikTable.ToList();
+        }
+
+        private void WorkerCobmaBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int GetWorker = Convert.ToInt32(WorkerCobmaBox.SelectedValue);
+            ListAccountingDataGrid.ItemsSource = AppConnectClass.DataBase.UcherTable.
+                Where(data => data.IDSotrudnik == GetWorker).ToList();
+
+            var GetCount = AppConnectClass.DataBase.UcherTable.
+                Where(data => data.IDSotrudnik == GetWorker).Count();
+            RecordTextBox.Text = GetCount.ToString();
+
+            var GetSumma = AppConnectClass.DataBase.UcherTable.
+                Where(data => data.IDSotrudnik == GetWorker).
+                Select(Sweep => Sweep.Summa).Sum();
+            SummaTextBox.Text = GetSumma.ToString();
         }
     }
 }

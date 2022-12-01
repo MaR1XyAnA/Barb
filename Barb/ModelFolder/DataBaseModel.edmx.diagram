@@ -5,14 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="054697a01aed4b389968ab4c371c1fd4" Name="Diagram1">
-        <EntityTypeShape EntityType="HypperXModel.MaterialTible" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="HypperXModel.ProizvoditelTable" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HypperXModel.SotrudnikTable" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="HypperXModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HypperXModel.UcherTable" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="HypperXModel.FK_MaterialTible_ProizvoditelTable" ManuallyRouted="false" />
-        <AssociationConnector Association="HypperXModel.FK_UcherTable_MaterialTible" ManuallyRouted="false" />
-        <AssociationConnector Association="HypperXModel.FK_UcherTable_SotrudnikTable" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="HypperXModel.MaterialTible" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="HypperXModel.ProizvoditelTable" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="HypperXModel.SotrudnikTable" Width="1.5" PointX="3" PointY="5.5" />
+        <EntityTypeShape EntityType="HypperXModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="HypperXModel.UcherTable" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="HypperXModel.RequestWorker" Width="1.5" PointX="7.75" PointY="0.75" />
+        <AssociationConnector Association="HypperXModel.FK_MaterialTible_ProizvoditelTable" />
+        <AssociationConnector Association="HypperXModel.FK_UcherTable_MaterialTible" />
+        <AssociationConnector Association="HypperXModel.FK_UcherTable_SotrudnikTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
