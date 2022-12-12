@@ -48,6 +48,7 @@ namespace Barb.ViewFolder.PageFolder
                 (twilight => new {Сотрудник = twilight.Key, Сумма = twilight.Sum(jack => jack.Summa)})
                 .OrderBy(pinc => pinc.Сотрудник);
             ListAccountingDataGrid.ItemsSource = Sweep.ToList();
+            //ттт
         }
     }
 }
